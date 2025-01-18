@@ -40,21 +40,20 @@
         .container {
             display: flex;
             flex-direction: row;
-            width: 96%;
-            background-color: #d0e0e3; /* Colore per le aree sotto le intestazioni */
-            margin: 0 auto;
-            border-top: 4px solid #45818e; /* Barra separatrice */
-            flex: 1;
-            overflow: hidden;
+            width: 100%;
+            height: calc(100% - 60px); /* Riduce l'altezza per lasciare spazio all'header */
+            scroll-snap-type: x mandatory;
+            overflow-x: auto;
         }
 
         .panel {
-            flex: 1;
+            flex: 0 0 100%;
             display: flex;
             flex-direction: column;
             padding: 15px;
             gap: 10px;
             background-color: #d0e0e3;
+            scroll-snap-align: start;
         }
 
         .area {
@@ -85,44 +84,17 @@
 
         @media screen and (max-width: 768px) {
             .container {
-                display: block;
-                overflow-x: hidden;
+                overflow-x: scroll;
+                scroll-snap-type: x mandatory;
+                scroll-behavior: smooth;
             }
 
             .panel {
-                width: 100%;
-                display: none;
-            }
-
-            .panel.active {
-                display: block;
+                flex: 0 0 100%;
+                scroll-snap-align: start;
             }
         }
 
-        .navigation {
-            display: none;
-            background-color: #45818e;
-            padding: 10px;
-            text-align: center;
-        }
-
-        .navigation button {
-            background-color: #ffffff;
-            color: #333;
-            border: 1px solid #dcdcdc;
-            padding: 10px 15px;
-            margin: 0 5px;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        @media screen and (max-width: 768px) {
-            .navigation {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-        }
     </style>
 </head>
 <body>
@@ -140,16 +112,10 @@
         </select>
     </div>
 
-    <!-- Navigation for Mobile -->
-    <div class="navigation">
-        <button onclick="showPanel('left')">Area Risultati</button>
-        <button onclick="showPanel('right')">Area Operazioni</button>
-    </div>
-
     <!-- Content Section -->
     <div class="container">
         <!-- Left Panel -->
-        <div class="panel active" id="left-panel">
+        <div class="panel">
             <div class="area" id="AreaRisultati">
                 <table>
                     <thead>
@@ -196,7 +162,7 @@
         </div>
 
         <!-- Right Panel -->
-        <div class="panel" id="right-panel">
+        <div class="panel">
             <div class="area" id="AreaOperazioni">
                 <table>
                     <thead>
@@ -232,18 +198,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function showPanel(panel) {
-            document.getElementById('left-panel').classList.remove('active');
-            document.getElementById('right-panel').classList.remove('active');
-
-            if (panel === 'left') {
-                document.getElementById('left-panel').classList.add('active');
-            } else if (panel === 'right') {
-                document.getElementById('right-panel').classList.add('active');
-            }
-        }
-    </script>
 </body>
 </html>
