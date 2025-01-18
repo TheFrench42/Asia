@@ -14,6 +14,7 @@
             width: 100vw;
             height: 100vh;
             background-color: #45818e; /* Sfondo principale */
+            overflow: hidden;
         }
 
         .header {
@@ -84,18 +85,44 @@
 
         @media screen and (max-width: 768px) {
             .container {
-                flex-direction: column;
-                overflow-x: auto;
-                scroll-snap-type: x mandatory;
-                scroll-behavior: smooth;
+                display: block;
+                overflow-x: hidden;
             }
 
             .panel {
-                flex: 0 0 100%;
-                scroll-snap-align: start;
+                width: 100%;
+                display: none;
+            }
+
+            .panel.active {
+                display: block;
             }
         }
 
+        .navigation {
+            display: none;
+            background-color: #45818e;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .navigation button {
+            background-color: #ffffff;
+            color: #333;
+            border: 1px solid #dcdcdc;
+            padding: 10px 15px;
+            margin: 0 5px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        @media screen and (max-width: 768px) {
+            .navigation {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
     </style>
 </head>
 <body>
@@ -113,10 +140,16 @@
         </select>
     </div>
 
+    <!-- Navigation for Mobile -->
+    <div class="navigation">
+        <button onclick="showPanel('left')">Area Risultati</button>
+        <button onclick="showPanel('right')">Area Operazioni</button>
+    </div>
+
     <!-- Content Section -->
     <div class="container">
         <!-- Left Panel -->
-        <div class="panel">
+        <div class="panel active" id="left-panel">
             <div class="area" id="AreaRisultati">
                 <table>
                     <thead>
@@ -163,7 +196,7 @@
         </div>
 
         <!-- Right Panel -->
-        <div class="panel">
+        <div class="panel" id="right-panel">
             <div class="area" id="AreaOperazioni">
                 <table>
                     <thead>
@@ -199,5 +232,18 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function showPanel(panel) {
+            document.getElementById('left-panel').classList.remove('active');
+            document.getElementById('right-panel').classList.remove('active');
+
+            if (panel === 'left') {
+                document.getElementById('left-panel').classList.add('active');
+            } else if (panel === 'right') {
+                document.getElementById('right-panel').classList.add('active');
+            }
+        }
+    </script>
 </body>
 </html>
