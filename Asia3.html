@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asia - Inventory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            width: 100vw;
+            height: 100vh;
+            background-color: #45818e; /* Sfondo principale */
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #45818e;
+            padding: 10px 15px;
+            width: 96%;
+            margin: 0 auto;
+        }
+
+        .header input[type="text"], .header select {
+            padding: 8px;
+            width: 47%;
+            border: 1px solid #dcdcdc;
+            border-radius: 4px;
+            text-align: center;
+            background-color: #ffffff; /* Bianco per uniformità */
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            width: 96%;
+            background-color: #d0e0e3; /* Colore per le aree sotto le intestazioni */
+            margin: 0 auto;
+            border-top: 4px solid #45818e; /* Barra separatrice */
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            gap: 10px;
+            background-color: #d0e0e3;
+        }
+
+        .area {
+            flex: 1;
+            background-color: #d0e0e3;
+            border: none;
+            padding: 10px;
+            max-height: 100%;
+            overflow-y: auto;
+        }
+
+        .area table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .area table th {
+            background-color: #ecf0f1; /* Grigio chiaro per l'intestazione delle tabelle */
+            color: #2c3e50;
+        }
+
+        .area table td {
+            border: 1px solid #dcdcdc;
+            padding: 8px;
+            text-align: left;
+            background-color: #f9f9f9; /* Bianco sporco per le celle */
+        }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                overflow-x: auto;
+                scroll-snap-type: x mandatory;
+                scroll-behavior: smooth;
+            }
+
+            .panel {
+                flex: 0 0 100%;
+                scroll-snap-align: start;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="header">
+        <input type="text" id="search" placeholder="Cerca articolo...">
+        <select id="operations">
+            <option value="Venduto (Chiusura)">Venduto (Chiusura)</option>
+            <option value="Carico (Apertura)">Carico (Apertura)</option>
+            <option value="Visualizza Venduto">Visualizza Venduto</option>
+            <option value="Visualizza Carico">Visualizza Carico</option>
+            <option value="Aggiorna Carta Vini">Aggiorna Carta Vini</option>
+            <option value="Crea Prodotto">Crea Prodotto</option>
+            <option value="Home">Home</option>
+        </select>
+    </div>
+
+    <!-- Content Section -->
+    <div class="container">
+        <!-- Left Panel -->
+        <div class="panel">
+            <div class="area" id="AreaRisultati">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                <select class="details" id="details">
+                                    <option value="Prezzo">Prezzo</option>
+                                    <option value="Vitigno">Vitigno</option>
+                                    <option value="Fattura">Fattura</option>
+                                    <option value="Prezzo Acquisto">Prezzo Acquisto</option>
+                                    <option value="Quantit&agrave; Totale">Quantit&agrave; Totale</option>
+                                </select>
+                            </th>
+                            <th>Nome Articolo</th>
+                            <th>M</th>
+                            <th>C</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Default 20 rows -->
+                        <tr><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td></tr>
+                        <tr><td></td><td></td><td></td><td></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="panel">
+            <div class="area" id="AreaOperazioni">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nome Articolo</th>
+                            <th>Quantit&agrave;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Default 20 rows -->
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                        <tr><td></td><td></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
