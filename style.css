@@ -22,9 +22,10 @@ body {
     display: flex;
     flex-direction: column;
     background: rgba(0, 0, 0, 0.1);
-    border: 10px;
     overflow: hidden;
-    width: 100%; /* Assicura che il pannello riempia il contenitore */
+    width: 100vw; /* Ogni pannello occupa l'intera larghezza */
+    height: 100vh; /* Ogni pannello occupa l'intera altezza */
+    transition: transform 0.5s ease;
 }
 
 /* Header (Glass Effect with Gradient Reflection) */
@@ -125,25 +126,24 @@ tr:hover {
 /* Swipe functionality */
 .container {
     display: flex;
-    flex-direction: row;
-    overflow: hidden;
+    flex-direction: row; /* Disposizione orizzontale dei pannelli */
     width: 100vw;
     height: 100vh;
-}
-
-.panel {
-    flex: 1;
-    width: 100vw; /* Ogni pannello occupa l'intera larghezza su dispositivi mobili */
-    transition: transform 0.5s ease;
+    overflow: hidden; /* Blocca overflow del contenitore */
+    position: relative;
 }
 
 @media (max-width: 768px) {
+    body {
+        touch-action: pan-x; /* Permette solo swipe orizzontale */
+        overflow: hidden; /* Impedisce scroll verticale */
+    }
+
     .panel {
-        width: 100vw;
-        height: 100vh;
-        position: absolute; /* Rimuove i problemi di overflow */
-        top: 0; /* Assicura l'allineamento verticale */
+        position: absolute;
+        top: 0;
         left: 0;
+        transition: transform 0.5s ease;
     }
 
     .panel.hidden {
@@ -152,18 +152,15 @@ tr:hover {
 
     .panel.active {
         transform: translateX(0); /* Mostra il pannello visibile */
-        position: relative; /* Torna al flusso normale quando visibile */
-    }
-
-    body {
-        touch-action: pan-x; /* Limita lo swipe al solo asse orizzontale */
     }
 }
 
 @media (min-width: 769px) {
     .panel {
-        width: auto;
         flex: 1;
+        position: relative;
+        width: auto;
+        height: auto;
     }
 }
 
