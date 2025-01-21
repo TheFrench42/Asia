@@ -12,7 +12,8 @@ body {
     min-height: 100vh;
     background: linear-gradient(#45818e, #d0e0e3);
     color: #000000;
-    overflow: hidden;
+    overflow: hidden; /* Blocca lo scrolling globale */
+    position: relative;
 }
 
 /* Panel Container */
@@ -153,8 +154,11 @@ tr:hover {
         transform: translateX(0); /* Mostra il pannello visibile */
         position: relative; /* Torna al flusso normale quando visibile */
     }
-}
 
+    body {
+        touch-action: pan-x; /* Limita lo swipe al solo asse orizzontale */
+    }
+}
 
 @media (min-width: 769px) {
     .panel {
@@ -162,4 +166,5 @@ tr:hover {
         flex: 1;
     }
 }
+
 
