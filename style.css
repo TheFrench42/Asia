@@ -1,0 +1,170 @@
+/* General Reset */
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+    background: linear-gradient(#45818e, #d0e0e3);
+    color: #000000;
+    overflow: hidden;
+}
+
+/* Panel Container */
+.panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.1);
+    border: 10px;
+    overflow: 1px;
+}
+
+/* Header (Glass Effect with Gradient Reflection) */
+.panel-header {
+    padding: 15px;
+    background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+}
+
+/* Search Input */
+.search {
+    width: calc(100% - 40px);
+    padding: 10px;
+    border: 1px solid #45818e;
+    background: #d0e0e3;
+    color: #434343;
+    font-size: 1rem;
+    text-align: center;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.search:focus {
+    outline: none;
+    background: #ffffff;
+    box-shadow: 0 0 10px #45818e, inset 0 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Intestazione (Glass Effect with Subtle Waves) */
+.intestazione {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 1fr;
+    width: calc(100% - 40px);
+    padding: 5px;
+    background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2));
+    backdrop-filter: blur(8px);
+    border: 1px solid #45818e;
+    color: #434343;
+    text-align: center;
+    box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Table Container: Scroll interno */
+.table-container {
+    flex: 1;
+    max-height: calc(100vh - 160px); /* Altezza dinamica, sottraendo header e footer */
+    overflow-y: auto; /* Scrolling verticale */
+    margin: 0 35px;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.2);
+    border: none;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #434343;
+}
+
+td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #45818e;
+    background: #d0e0e3;
+}
+
+tbody tr:nth-child(odd) {
+    background: #ffffff;
+}
+
+tbody tr:nth-child(even) {
+    background: #d0e0e3;
+}
+
+tr:hover {
+    background: #45818e;
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+/* Footer */
+.panel-footer {
+    padding: 15px;
+    background: #434343;
+    text-align: center;
+    border-top: 2px solid #45818e;
+    position: sticky;
+    bottom: 0; /* Fissa il footer in basso */
+    width: 100%; /* Assicura che copra l'intero pannello */
+}
+
+/* Swipe functionality */
+.container {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
+.panel {
+    flex: 1;
+    width: 100vw; /* Ogni pannello occupa l'intera larghezza su dispositivi mobili */
+    transition: transform 0.5s ease;
+}
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    #page-left {
+        transform: translateX(0); /* Mostra la pagina sinistra inizialmente */
+    }
+
+    #page-right {
+        transform: translateX(100%); /* Nasconde la pagina destra inizialmente */
+    }
+
+    .panel {
+        width: 100vw; /* Pannello intero schermo */
+    }
+
+    .panel.active {
+        transform: translateX(0); /* Porta il pannello visibile */
+    }
+
+    .panel.hidden {
+        transform: translateX(100%); /* Nasconde il pannello */
+    }
+}
+
+@media (min-width: 769px) {
+    .panel {
+        width: auto;
+        flex: 1;
+    }
+}
