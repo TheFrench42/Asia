@@ -5,14 +5,17 @@ const panels = document.querySelectorAll('.panel');
 function showPanel(index) {
     panels.forEach((panel, i) => {
         if (i === index) {
+            panel.style.zIndex = 1; // Porta il pannello in primo piano
             panel.classList.add('active');
             panel.classList.remove('hidden');
         } else {
+            panel.style.zIndex = 0; // Nasconde il pannello dietro
             panel.classList.add('hidden');
             panel.classList.remove('active');
         }
     });
 }
+
 
 // Eventi di swipe
 let startX = 0;
