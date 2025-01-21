@@ -1,34 +1,41 @@
 /* General Reset */
 * {
-    font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
 }
 
+/* Body */
 body {
-    display: flex;
-    flex-direction: row; /* Disposizione orizzontale per desktop */
-    min-height: 100vh;
-    background: linear-gradient(#45818e, #d0e0e3);
-    color: #000000;
-    overflow: hidden; /* Blocca lo scrolling globale */
-    position: relative;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Su desktop vogliamo evitare scroll verticali esterni */
 }
 
-/* Panel Container */
+/* Container per i panel (pagine) - layout orizzontale */
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 100vh;
+    overflow-x: auto;               /* Abilita scroll orizzontale per mobile */
+    scroll-snap-type: x mandatory;  /* Snap "a scatto" quando si fa swipe */
+    scroll-behavior: smooth;        /* Animazione fluida durante lo scroll */
+    background: linear-gradient(#45818e, #d0e0e3);
+}
+
+/* Ogni panel è una "pagina": su mobile occupa 100% della larghezza */
 .panel {
-    flex: 1;
+    flex: 0 0 100vw;          /* su mobile la pagina occupa 100% della larghezza */
     display: flex;
     flex-direction: column;
+    scroll-snap-align: start; /* punto di snap */
     background: rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    width: 100vw; /* Ogni pannello occupa l'intera larghezza */
-    height: 100vh; /* Ogni pannello occupa l'intera altezza */
-    transition: transform 0.5s ease;
+    border: 1px solid rgba(0,0,0,0.2);
 }
 
-/* Header (Glass Effect with Gradient Reflection) */
+/* Header delle pagine */
 .panel-header {
     padding: 15px;
     background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
@@ -40,7 +47,7 @@ body {
     color: #ffffff;
 }
 
-/* Search Input */
+/* Box di ricerca */
 .search {
     width: calc(100% - 40px);
     padding: 10px;
@@ -51,6 +58,7 @@ body {
     text-align: center;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
+    margin-bottom: 8px;
 }
 
 .search:focus {
@@ -59,7 +67,7 @@ body {
     box-shadow: 0 0 10px #45818e, inset 0 1px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Intestazione (Glass Effect with Subtle Waves) */
+/* Intestazione tabella */
 .intestazione {
     display: grid;
     grid-template-columns: 1fr 3fr 1fr 1fr;
@@ -73,18 +81,16 @@ body {
     box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* Table Container: Scroll interno */
+/* Tabella scrollabile interna */
 .table-container {
     flex: 1;
-    max-height: calc(100vh - 160px); /* Altezza dinamica, sottraendo header e footer */
-    overflow-y: auto; /* Scrolling verticale */
-    margin: 0 35px;
+    overflow-y: auto;
+    margin: 0 20px 0 20px;
     background: rgba(255, 255, 255, 0.1);
     box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.2);
     border: none;
 }
 
-/* Table Styles */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -112,56 +118,26 @@ tr:hover {
     transition: all 0.3s ease;
 }
 
-/* Footer */
+/* Footer delle pagine */
 .panel-footer {
     padding: 15px;
     background: #434343;
     text-align: center;
     border-top: 2px solid #45818e;
-    position: sticky;
-    bottom: 0; /* Fissa il footer in basso */
-    width: 100%; /* Assicura che copra l'intero pannello */
+    color: #ffffff;
 }
 
-/* Swipe functionality */
-.container {
-    display: flex;
-    flex-direction: row; /* Disposizione orizzontale dei pannelli */
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden; /* Blocca overflow del contenitore */
-    position: relative;
-}
-
-@media (max-width: 768px) {
-    body {
-        touch-action: pan-x; /* Permette solo swipe orizzontale */
-        overflow: hidden; /* Impedisce scroll verticale */
-    }
-
-    .panel {
-        position: absolute;
-        top: 0;
-        left: 0;
-        transition: transform 0.5s ease;
-    }
-
-    .panel.hidden {
-        transform: translateX(100%); /* Nasconde il pannello a destra */
-    }
-
-    .panel.active {
-        transform: translateX(0); /* Mostra il pannello visibile */
-    }
-}
-
+/* Su desktop (min-width: 769px) i panel si affiancano senza scroll orizzontale */
 @media (min-width: 769px) {
+    .container {
+        overflow-x: hidden;   /* Nessun scroll orizzontale su desktop */
+        scroll-snap-type: none; /* Disabilita snapping */
+    }
     .panel {
-        flex: 1;
-        position: relative;
+        flex: 1;             /* Pagine affiancate */
         width: auto;
-        height: auto;
     }
 }
+
 
 
