@@ -137,28 +137,24 @@ tr:hover {
 }
 
 @media (max-width: 768px) {
-    body {
-        flex-direction: row; /* Mantiene i pannelli in orizzontale */
-        width: 200vw; /* Permette il layout dei pannelli orizzontale */
-    }
-
     .panel {
-        width: 100vw; /* Pannello intero schermo */
-        height: 100vh; /* Assicura che i pannelli siano alti quanto lo schermo */
+        width: 100vw;
+        height: 100vh;
+        position: absolute; /* Rimuove i problemi di overflow */
+        top: 0; /* Assicura l'allineamento verticale */
+        left: 0;
     }
 
     .panel.hidden {
-        transform: translateX(100%); /* Sposta il pannello fuori schermo */
+        transform: translateX(100%); /* Nasconde il pannello a destra */
     }
 
     .panel.active {
         transform: translateX(0); /* Mostra il pannello visibile */
-    }
-
-    .panel {
-        transition: transform 0.5s ease; /* Aggiunge una transizione fluida */
+        position: relative; /* Torna al flusso normale quando visibile */
     }
 }
+
 
 @media (min-width: 769px) {
     .panel {
