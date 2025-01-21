@@ -8,7 +8,7 @@
 
 body {
     display: flex;
-    flex-direction: row;
+    flex-direction: row; /* Disposizione orizzontale per desktop */
     min-height: 100vh;
     background: linear-gradient(#45818e, #d0e0e3);
     color: #000000;
@@ -22,7 +22,8 @@ body {
     flex-direction: column;
     background: rgba(0, 0, 0, 0.1);
     border: 10px;
-    overflow: 1px;
+    overflow: hidden;
+    width: 100%; /* Assicura che il pannello riempia il contenitore */
 }
 
 /* Header (Glass Effect with Gradient Reflection) */
@@ -137,28 +138,25 @@ tr:hover {
 
 @media (max-width: 768px) {
     body {
-        flex-direction: column;
-        overflow: hidden;
-    }
-
-    #page-left {
-        transform: translateX(0); /* Mostra la pagina sinistra inizialmente */
-    }
-
-    #page-right {
-        transform: translateX(100%); /* Nasconde la pagina destra inizialmente */
+        flex-direction: row; /* Mantiene i pannelli in orizzontale */
+        width: 200vw; /* Permette il layout dei pannelli orizzontale */
     }
 
     .panel {
         width: 100vw; /* Pannello intero schermo */
-    }
-
-    .panel.active {
-        transform: translateX(0); /* Porta il pannello visibile */
+        height: 100vh; /* Assicura che i pannelli siano alti quanto lo schermo */
     }
 
     .panel.hidden {
-        transform: translateX(100%); /* Nasconde il pannello */
+        transform: translateX(100%); /* Sposta il pannello fuori schermo */
+    }
+
+    .panel.active {
+        transform: translateX(0); /* Mostra il pannello visibile */
+    }
+
+    .panel {
+        transition: transform 0.5s ease; /* Aggiunge una transizione fluida */
     }
 }
 
@@ -168,3 +166,4 @@ tr:hover {
         flex: 1;
     }
 }
+
